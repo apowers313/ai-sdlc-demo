@@ -1,15 +1,23 @@
+import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
 import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
-import prettier from 'eslint-config-prettier';
 import jest from 'eslint-plugin-jest';
 import testingLibrary from 'eslint-plugin-testing-library';
-import nextPlugin from '@next/eslint-plugin-next';
 import globals from 'globals';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
 
 export default [
   js.configs.recommended,
-  prettier,
+  ...compat.extends('next/core-web-vitals', 'prettier'),
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
@@ -31,13 +39,11 @@ export default [
     },
     plugins: {
       '@typescript-eslint': typescript,
-      '@next/next': nextPlugin,
     },
     rules: {
       ...typescript.configs.recommended.rules,
       '@typescript-eslint/explicit-function-return-type': 'warn',
       '@typescript-eslint/no-unused-vars': 'error',
-      '@next/next/no-html-link-for-pages': 'error',
       'no-undef': 'off', // TypeScript handles this
     },
   },
@@ -68,6 +74,7 @@ export default [
       '*.config.js',
       '*.config.mjs',
       'jest.setup.js',
+      '.eslintrc.cjs',
     ],
   },
 ];

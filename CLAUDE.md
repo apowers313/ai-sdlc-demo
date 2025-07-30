@@ -108,3 +108,7 @@ The application runs on port 9090 (configured in package.json) to avoid conflict
 
 - After completing an implementation of a new feature, always run 'npm run test:coverage'. If our test coverage isn't at least 80%, add more tests until our test coverage is at least 80%.
 - After fixing a bug in our implementation, always add a test to check for that bug so that we don't regress and have that bug again
+
+## Development Efficiency
+
+- You can install npm packages where it would save you from having to reimplement and maintain your own code

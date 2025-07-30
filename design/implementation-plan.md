@@ -996,8 +996,8 @@ npm install --save-dev \
    
    import { useState } from 'react';
    import { Joke } from '@/types/joke';
-   import { motion, AnimatePresence } from 'framer-motion';
-   import { Heart, Share2, Copy, RotateCcw } from 'lucide-react';
+   import { motion } from 'framer-motion';
+   import { Heart, Share2, Copy } from 'lucide-react';
    import { cn } from '@/lib/utils';
    import { ShareMenu } from '@/components/features/ShareMenu';
    import { useFavoritesStore } from '@/stores/favoritesStore';
@@ -1009,7 +1009,6 @@ npm install --save-dev \
    }
    
    export function JokeCard({ joke, index = 0, showAnimation = true }: JokeCardProps) {
-     const [isFlipped, setIsFlipped] = useState(false);
      const [copied, setCopied] = useState(false);
      const { favorites, addFavorite, removeFavorite } = useFavoritesStore();
      const isFavorite = favorites.some(fav => fav.id === joke.id);
@@ -1064,68 +1063,47 @@ npm install --save-dev \
          >
            <div className="p-6">
              {/* Joke Content */}
-             <AnimatePresence mode="wait">
-               <motion.div
-                 key={isFlipped ? 'back' : 'front'}
-                 initial={{ rotateY: 90 }}
-                 animate={{ rotateY: 0 }}
-                 exit={{ rotateY: -90 }}
-                 transition={{ duration: 0.3 }}
-               >
-                 <p className="text-lg leading-relaxed text-gray-800 dark:text-gray-200">
-                   {joke.joke}
-                 </p>
-               </motion.div>
-             </AnimatePresence>
+             <p className="text-lg leading-relaxed text-gray-800 dark:text-gray-200">
+               {joke.joke}
+             </p>
              
              {/* Action Buttons */}
-             <div className="mt-6 flex items-center justify-between">
-               <div className="flex gap-2">
-                 <motion.button
-                   whileHover={{ scale: 1.1 }}
-                   whileTap={{ scale: 0.9 }}
-                   onClick={handleFavorite}
-                   className={cn(
-                     'p-2 rounded-full transition-colors',
-                     isFavorite
-                       ? 'bg-red-100 text-red-600 dark:bg-red-900/20 dark:text-red-400'
-                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-400'
-                   )}
-                   aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-                 >
-                   <Heart className={cn('w-5 h-5', isFavorite && 'fill-current')} />
-                 </motion.button>
-                 
-                 <ShareMenu joke={joke} />
-                 
-                 <motion.button
-                   whileHover={{ scale: 1.1 }}
-                   whileTap={{ scale: 0.9 }}
-                   onClick={handleCopy}
-                   className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-400 transition-colors"
-                   aria-label="Copy joke"
-                 >
-                   {copied ? (
-                     <motion.span
-                       initial={{ scale: 0 }}
-                       animate={{ scale: 1 }}
-                       className="text-green-600 dark:text-green-400"
-                     >
-                       ✓
-                     </motion.span>
-                   ) : (
-                     <Copy className="w-5 h-5" />
-                   )}
-                 </motion.button>
-               </div>
+             <div className="mt-6 flex items-center justify-start gap-2">
+               <motion.button
+                 whileHover={{ scale: 1.1 }}
+                 whileTap={{ scale: 0.9 }}
+                 onClick={handleFavorite}
+                 className={cn(
+                   'p-2 rounded-full transition-colors',
+                   isFavorite
+                     ? 'bg-red-100 text-red-600 dark:bg-red-900/20 dark:text-red-400'
+                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-400'
+                 )}
+                 aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+               >
+                 <Heart className={cn('w-5 h-5', isFavorite && 'fill-current')} />
+               </motion.button>
+               
+               <ShareMenu joke={joke} />
                
                <motion.button
-                 whileHover={{ rotate: 180 }}
-                 onClick={() => setIsFlipped(!isFlipped)}
+                 whileHover={{ scale: 1.1 }}
+                 whileTap={{ scale: 0.9 }}
+                 onClick={handleCopy}
                  className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-400 transition-colors"
-                 aria-label="Flip card"
+                 aria-label="Copy joke"
                >
-                 <RotateCcw className="w-5 h-5" />
+                 {copied ? (
+                   <motion.span
+                     initial={{ scale: 0 }}
+                     animate={{ scale: 1 }}
+                     className="text-green-600 dark:text-green-400"
+                   >
+                     ✓
+                   </motion.span>
+                 ) : (
+                   <Copy className="w-5 h-5" />
+                 )}
                </motion.button>
              </div>
            </div>
@@ -1167,7 +1145,7 @@ npm install --save-dev \
 **Success Criteria:**
 - Component renders correctly
 - Animations work smoothly
-- All interactions tested
+- All interactions tested (favorite, share, copy)
 
 #### Step 3.2: Implement Infinite Scroll Component
 **Tasks:**

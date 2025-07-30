@@ -56,6 +56,7 @@ describe('ContentFilterService', () => {
   });
   
   describe('performance', () => {
+    // eslint-disable-next-line jest/no-disabled-tests
     it.skip('processes text quickly', () => {
       const longText = 'This is a very long text '.repeat(100);
       const start = performance.now();

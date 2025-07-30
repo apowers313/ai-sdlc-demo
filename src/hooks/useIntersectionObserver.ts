@@ -32,6 +32,15 @@ export function useIntersectionObserver(
     
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (process.env.NODE_ENV === 'development') {
+          console.log('📍 Intersection Observer:', {
+            isIntersecting: entry.isIntersecting,
+            intersectionRatio: entry.intersectionRatio,
+            target: entry.target,
+            threshold,
+            rootMargin
+          });
+        }
         setIsIntersecting(entry.isIntersecting);
         setEntry(entry);
       },

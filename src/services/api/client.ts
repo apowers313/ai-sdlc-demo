@@ -6,7 +6,7 @@ export const apiClient = axios.create({
   timeout: config.api.timeout,
   headers: {
     'Accept': 'application/json',
-    'User-Agent': config.api.headers['User-Agent'],
+    // User-Agent cannot be set in browser environments
   },
 });
 

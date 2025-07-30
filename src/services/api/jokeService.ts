@@ -97,7 +97,7 @@ class JokeService {
       return {
         ...data,
         results: filteredResults,
-        total_jokes: filteredResults.length,
+        // Don't modify pagination data - keep original totals
       };
     }
     

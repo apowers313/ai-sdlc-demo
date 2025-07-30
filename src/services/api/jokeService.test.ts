@@ -156,7 +156,8 @@ describe('JokeService', () => {
 
       expect(result.results).toHaveLength(1);
       expect(result.results[0]).toEqual(mockJoke);
-      expect(result.total_jokes).toBe(1);
+      // total_jokes should preserve the original count from API
+      expect(result.total_jokes).toBe(100);
       expect(mockFilterState.updateStats).toHaveBeenCalled();
     });
   });

@@ -20,7 +20,7 @@ describe('API Client', () => {
 
   it('should have correct default headers', () => {
     expect(apiClient.defaults.headers['Accept']).toBe('application/json');
-    expect(apiClient.defaults.headers['User-Agent']).toBe(config.api.headers['User-Agent']);
+    // User-Agent cannot be set in browser environments
   });
 
   describe('interceptors', () => {

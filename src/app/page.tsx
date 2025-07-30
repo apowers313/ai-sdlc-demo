@@ -1,4 +1,7 @@
+'use client';
+
 import { FilterSettings } from '@/components/features/FilterSettings';
+import { InfiniteJokeList } from '@/components/jokes/InfiniteJokeList';
 
 export default function Home(): React.ReactElement {
   return (
@@ -6,10 +9,10 @@ export default function Home(): React.ReactElement {
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-center mb-8">JokeStream</h1>
-          <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
-            Coming soon: Endless dad jokes for everyone!
-          </p>
           <FilterSettings />
+          <div className="mt-8">
+            <InfiniteJokeList />
+          </div>
         </div>
       </main>
     </div>

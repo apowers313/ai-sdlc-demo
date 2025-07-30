@@ -23,7 +23,10 @@ export function useInfiniteJokes(searchTerm?: string): UseInfiniteJokesReturn {
   
   const getKey = (pageIndex: number, previousPageData: JokeSearchResponse | null): (string | number | boolean)[] | null => {
     // null means we've reached the end
-    if (previousPageData && !previousPageData.next_page) return null;
+    // Check if next_page equals current_page (API's way of indicating last page)
+    if (previousPageData && (!previousPageData.next_page || previousPageData.next_page === previousPageData.current_page)) {
+      return null;
+    }
     
     // first page, we return the key
     if (pageIndex === 0) {
@@ -38,7 +41,7 @@ export function useInfiniteJokes(searchTerm?: string): UseInfiniteJokesReturn {
     const [, term, page, filter] = key;
     return jokeService.searchJokes(
       {
-        term: String(term) || 'dad',  // Default search term to get all jokes
+        term: String(term),  // Empty term returns all jokes
         page: Number(page),
         limit: 20,
       },
@@ -70,7 +73,11 @@ export function useInfiniteJokes(searchTerm?: string): UseInfiniteJokesReturn {
   const jokes = data?.flatMap(page => page.results) ?? [];
   
   // Check if there are more pages to load
-  const hasMore = data ? data[data.length - 1]?.next_page !== null : true;
+  // The API returns next_page === current_page on the last page, not null
+  const hasMore = data ? (
+    data[data.length - 1]?.next_page !== null && 
+    data[data.length - 1]?.next_page !== data[data.length - 1]?.current_page
+  ) : true;
   
   // Total number of jokes available
   const totalJokes = data?.[0]?.total_jokes ?? 0;

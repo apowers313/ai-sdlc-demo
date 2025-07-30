@@ -21,15 +21,15 @@ export const useFilterStore = create<FilterState>()(
       strength: 'strict',
       customBlocklist: [],
       stats: undefined,
-      toggleFilter: () => set((state) => ({ isEnabled: !state.isEnabled })),
-      setStrength: (strength) => set({ strength }),
-      addToBlocklist: (word) => set((state) => ({
+      toggleFilter: (): void => set((state) => ({ isEnabled: !state.isEnabled })),
+      setStrength: (strength): void => set({ strength }),
+      addToBlocklist: (word): void => set((state) => ({
         customBlocklist: [...state.customBlocklist, word]
       })),
-      removeFromBlocklist: (word) => set((state) => ({
+      removeFromBlocklist: (word): void => set((state) => ({
         customBlocklist: state.customBlocklist.filter(w => w !== word)
       })),
-      updateStats: (newStats) => set((state) => ({
+      updateStats: (newStats): void => set((state) => ({
         stats: state.stats ? { ...state.stats, ...newStats } : {
           totalChecked: 0,
           totalBlocked: 0,

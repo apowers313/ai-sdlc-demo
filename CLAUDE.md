@@ -99,3 +99,12 @@ The project follows a phased implementation plan (see `design/implementation-pla
 ## Port Configuration
 
 The application runs on port 9090 (configured in package.json) to avoid conflicts with other services.
+
+## Security Guidance
+
+- **NEVER WRITE ANY FILES TO THE ./jokestream DIRECTORY**
+
+## Development Best Practices
+
+- After completing an implementation of a new feature, always run 'npm run test:coverage'. If our test coverage isn't at least 80%, add more tests until our test coverage is at least 80%.
+- After fixing a bug in our implementation, always add a test to check for that bug so that we don't regress and have that bug again

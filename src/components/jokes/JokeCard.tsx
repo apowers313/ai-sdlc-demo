@@ -42,7 +42,7 @@ export function JokeCard({ joke, index = 0, showAnimation = true }: JokeCardProp
       opacity: 1,
       y: 0,
       transition: {
-        type: 'spring',
+        type: 'spring' as const,
         damping: 25,
         stiffness: 300,
         delay: index * 0.1,

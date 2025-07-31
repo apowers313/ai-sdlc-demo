@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "projectName": "jokestream",
+  "mainBranch": "master",
+  "baseDir": ".worktrees",
+  "tmux": true
+}

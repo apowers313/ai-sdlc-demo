@@ -17,7 +17,7 @@ export function InfiniteJokeList({ searchTerm }: InfiniteJokeListProps): React.R
 
   // Simple scroll-based loading
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       if (loadingRef.current || !hasMore || isValidating) return;
 
       const scrollTop = window.scrollY;
@@ -34,7 +34,7 @@ export function InfiniteJokeList({ searchTerm }: InfiniteJokeListProps): React.R
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return (): void => window.removeEventListener('scroll', handleScroll);
   }, [size, setSize, hasMore, isValidating]);
 
   if (error) {
